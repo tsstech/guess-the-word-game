@@ -10,3 +10,14 @@ const playAgain = document.querySelector(".play-again");
 // Global variable holding the word
 const word = "magnolia";
 
+// Function to Add Placeholders for Each Letter
+const placeholdersForWord = function(word){
+	placeholder = [];
+	// Looping through word to add placeholder for each letter
+	for (char in word){
+		placeholder.push("●")
+	}
+	wordInProgress.innerText = placeholder.join("");
+};
+
+placeholdersForWord(word);
