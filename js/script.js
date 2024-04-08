@@ -20,12 +20,31 @@ const placeholdersForWord = function(word){
 	wordInProgress.innerText = placeholder.join("");
 };
 
+// Function to validate user input guesses
+const validateInput = function(input){
+	const acceptedLetter = /[a-zA-Z]/;
+	if (input === ""){
+		message.innerText = "Please enter a letter.";
+	} else if (input.length > 1){
+		message.innerText = "Please enter a single letter.";
+	} else if (!input.match(acceptedLetter)){
+		message.innerText = "Please enter a letter from A to Z";
+	} else {
+		return input;
+	}
+};
+
 // Event listener for guess Button
 guessButton.addEventListener("click", function(e){
-	e.preventDefault();
+	e.preventDefault();	// Prevent page from reloading
+	
+	message.innerText = "";	// Clear message
+
+	// Validate input guess
 	guess = guessInput.value;
-	console.log(guess);
-	guessInput.value = "";
+	goodGuess = validateInput(guess);
+	
+	guessInput.value = "";	// Clear input field
 });
 
 
