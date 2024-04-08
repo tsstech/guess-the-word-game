@@ -1,5 +1,5 @@
 // Variables selecting elements from index.html
-const guessedLetters = document.querySelector(".guessed-letters");
+const guessedLettersList = document.querySelector(".guessed-letters");
 const guessButton = document.querySelector(".guess");
 const guessInput = document.querySelector(".letter");
 const wordInProgress = document.querySelector(".word-in-progress");
@@ -7,8 +7,9 @@ const remainingGuesses = document.querySelector(".remaining span");
 const message = document.querySelector(".message");
 const playAgain = document.querySelector(".play-again");
 
-// Global variable holding the word
+// Global variables holding the word & guesses
 const word = "magnolia";
+const guessedLetters = [];
 
 // Function to Add Placeholders for Each Letter
 const placeholdersForWord = function(word){
@@ -34,15 +35,31 @@ const validateInput = function(input){
 	}
 };
 
+// Function to checked if the letter has been guessed before. If not, it is added to the guessed-letters list
+const makeGuess = function(letter){
+	letter = letter.toUpperCase();
+	if (letter in guessedLetters){
+		message.innerText = "You have already guessed this letter.";
+	} else {
+		guessedLetters.push(letter);
+	}
+	console.log(guessedLetters);
+};
+
 // Event listener for guess Button
 guessButton.addEventListener("click", function(e){
 	e.preventDefault();	// Prevent page from reloading
 	
 	message.innerText = "";	// Clear message
 
-	// Validate input guess
+	// Validate input guess 
 	guess = guessInput.value;
 	goodGuess = validateInput(guess);
+	
+	// If it is a valid guess, check if the letter has been guessed before
+	if (goodGuess != undefined){
+		makeGuess(goodGuess);
+	}
 	
 	guessInput.value = "";	// Clear input field
 });
