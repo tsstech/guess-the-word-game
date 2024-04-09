@@ -38,13 +38,13 @@ const validateInput = function(input){
 // Function to checked if the letter has been guessed before. If not, it is added to the guessed-letters list
 const makeGuess = function(letter){
 	letter = letter.toUpperCase();
-	if (letter in guessedLetters){
+	if (guessedLetters.includes(letter)){
 		message.innerText = "You have already guessed this letter.";
 	} else {
 		guessedLetters.push(letter);
 		showGuessedLetters();
+		updateWord(guessedLetters);
 	}
-	console.log(guessedLetters);
 };
 
 // Function to show guessed letters
@@ -55,6 +55,25 @@ const showGuessedLetters = function(){
 		li.innerText = letter;
 		guessedLettersList.append(li);
 	}
+};
+
+// Function to update the word in progress
+const updateWord = function(guessedLetters){
+	const wordUpper = word.toUpperCase();
+	const wordArray = wordUpper.split("");
+	const revealWord = [];
+	
+	// Check each letter in word to see if the letter has been guessed
+	// and update dot to letter if it is correctly guessed
+	for (const letter of wordArray) {
+		if (guessedLetters.includes(letter)) {
+			revealWord.push(letter.toUpperCase());
+		} else {
+			revealWord.push("●");
+		}
+	}
+	
+	wordInProgress.innerText = revealWord.join("");
 };
 
 // Event listener for guess Button
