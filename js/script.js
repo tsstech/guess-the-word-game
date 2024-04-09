@@ -42,8 +42,19 @@ const makeGuess = function(letter){
 		message.innerText = "You have already guessed this letter.";
 	} else {
 		guessedLetters.push(letter);
+		showGuessedLetters();
 	}
 	console.log(guessedLetters);
+};
+
+// Function to show guessed letters
+const showGuessedLetters = function(){
+	guessedLettersList.innerHTML = "";
+	for (letter of guessedLetters){
+		const li = document.createElement("li");
+		li.innerText = letter;
+		guessedLettersList.append(li);
+	}
 };
 
 // Event listener for guess Button
